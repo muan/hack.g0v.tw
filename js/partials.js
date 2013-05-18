@@ -13,5 +13,5 @@ angular.module('partials', [])
 }])
 .run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/nav.html', [
-'<ul class="nav"><li><a ng-href="/">首頁</a></li><li class="dropdown"><a ng-href="#/g0v-hackath3n" data-toggle="dropdown" class="dropdown-toggle">客廳工廠黑客松</a><!-- not working yet--><ul class="dropdown-menu"><li><a ng-href="#/g0v-hackath2n">九大建設</a></li></ul></li><li class="dropdown"><a ng-href="#/g0v-ly" data-toggle="dropdown" class="dropdown-toggle">立法院專案</a></li></ul><ul class="nav pull-right"><li ng-class="{ active: $state.includes(\'about\') }"><a ng-href="#/about">關於</a></li></ul>',''].join("\n"));
+'<ul class="nav"><li><a ng-href="/">首頁</a></li><li class="dropdown"><a ng-href="#/g0v-hackath3n" data-toggle="dropdown" class="dropdown-toggle">客廳工廠黑客松</a><!-- not working yet--><ul class="dropdown-menu"><li><a ng-href="#/g0v-hackath2n">九大建設</a></li></ul></li><li><a ng-href="#/g0v-ly">立法院專案</a></li><li><a ng-href="#/g0vwelfare">福利請聽</a></li></ul><ul class="nav pull-right"><li ng-class="{ active: $state.includes(\'about\') }"><a ng-href="#/about">關於</a></li></ul>',''].join("\n"));
 }]);
