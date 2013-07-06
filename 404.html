@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="main-content">
-        <div ng-include="'/partials/irc.html'" resize ng-style="{width: width, height: contentHeight}" class="irc"></div>
+        <div ng-include="'/partials/irc.html'" resize ng-style="{width: width, height: contentHeight}" ng-controller="IRC" ng-show="ircActive" class="irc"></div>
         <div ui-view></div>
       </div>
       <div class="push"></div>
