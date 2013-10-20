@@ -26,7 +26,10 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
     open: (doc) ->
       window.open doc.url, doc.id
       return false
-    activate: HackFolder.activate
+    activate: ->
+      doc = HackFolder.activate it
+      if doc?type is \hackfoldr
+        console.log \folder!!
     saveBtn: void
     saveModalOpts: dialogFade: true
     saveModalOpen: false
@@ -54,16 +57,27 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
   $scope.pgname = $state.params.pgname
   $scope.$watch 'hackId' (hackId) ->
     <- HackFolder.getIndex hackId, false
-    $scope.$watch 'docId' (docId) -> HackFolder.activate docId if docId
+    $scope.$watch 'docId' (docId) ->
+      doc = HackFolder.activate docId if docId
+      if doc?type is \hackfoldr
+        $scope.show-index = true
+        folder-title, docs, tree <- HackFolder.load-remote-csv doc.id
+        [entry] = [entry for entry in HackFolder.tree when entry.id is docId]
+        entry.tagFilter = entry.tags?0?content
+        unless entry.chidlren
+          entry.children ?= tree?0.children
+          HackFolder.docs.splice docs.length, 0, ...docs
+        $scope.indexDocs = docs
+        $scope.indexSearch = hackId.replace /^g0v-/,''
+      else
+        $scope.show-index = false
+    $scope.show-index = $state.current.name is \hack.index
+    return if $scope.show-index
     unless $scope.docId
       if HackFolder.docs.0?id
-        if $state.params.pgname != '__index'
-          $state.transitionTo 'hack.doc', { docId: that, hackId: $scope.hackId}
-        else
-          $state.transitionTo 'hack.doc', { hackId: $scope.hackId,pgname:$scope.pgname}
+        $state.transitionTo 'hack.doc', { docId: that, hackId: $scope.hackId}
 
-
-  $scope.hackId = if $state.params.hackId => that else 'g0v-hackath4n'
+  $scope.hackId = if $state.params.hackId => that else 'g0v-hackath5n'
   $scope.$watch '$state.params.docId' (docId) ->
     $scope.docId = encodeURIComponent encodeURIComponent docId if docId
 
@@ -178,10 +192,12 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
 
       src += doc.hashtag if doc.hashtag
 
+      return doc if doc.type is \hackfoldr
       if iframes[id]
           that <<< {src, mode}
       else
           iframes[id] = {src, doc, mode}
+      return doc
 
     getIndex: (id, force, cb) ->
       return cb docs if hackId is id and !force
@@ -193,20 +209,34 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
 
         hackId := id
         docs.length = 0
-        @load-csv csv, cb
+        @process-csv csv, cb
       doit!
 
-    load-csv: (csv, cb) ->
+
+    process-csv: (csv, cb) ->
+      folder-title, docs <- @load-csv csv, docs, tree
+      self.folder-title = folder-title
+      cb docs
+
+    load-remote-csv: (id, cb) ->
+      csv <~ $http.get "https://www.ethercalc.org/_/#{id}/csv"
+      .success
+      docs = []
+      tree = []
+      folder-title <~ @load-csv csv, docs, tree
+      cb folder-title, docs, tree
+
+    load-csv: (csv, docs, tree, cb) ->
       var folder-title
       csv -= /^\"?#.*\n/gm
       entries = for line in csv.split /\n/ when line
-        [url, title, opts, tags, ...rest] = line.split /,/
+        [url, title, opts, tags, summary, ...rest] = line.split /,/
         title -= /^"|"$/g
         opts -= /^"|"$/g if opts
         opts.=replace /""/g '"' if opts
         tags -= /^"|"$/g if tags
         [_, prefix, url, hashtag] = url.match /^"?(\s*)(\S+?)?(#\S+?)?\s*"?$/
-        entry = { hashtag, url, title, indent: prefix.length, opts: try JSON.parse opts ? '{}' } <<< match url
+        entry = { summary, hashtag, url, title, indent: prefix.length, opts: try JSON.parse opts ? '{}' } <<< match url
         | void
             unless folder-title
               if title
@@ -215,6 +245,10 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
             title: title
             type: \dummy
             id: \dummy
+        | // ^\/\/(.*?)(?:\#(.*))?$ //
+            type: \hackfoldr
+            id: that.1
+            tag: that.2
         | // ^https?:\/\/www\.ethercalc\.(?:com|org)/(.*) //
             type: \ethercalc
             id: that.1
@@ -267,5 +301,4 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
           it.expand = it.opts?expand ? it.children.length < 5
         it
       tree.splice 0, tree.length, ...nested
-      self.folder-title = folder-title
-      cb docs
+      cb folder-title, docs

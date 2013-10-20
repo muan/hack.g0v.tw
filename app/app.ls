@@ -12,6 +12,10 @@ angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state
     .state 'about' do
       url: '/about'
       templateUrl: '/partials/about.html'
+    .state 'project-new' do
+      url: '/project-new'
+      templateUrl: '/partials/project.new.html'
+      controller: \ProjectCtrl
     .state 'irc' do
       url: '/irc'
       onEnter: ->
@@ -42,6 +46,8 @@ angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state
         $ \body .addClass \hide-overflow
       onExit: ->
         $ \body .removeClass \hide-overflow
+    .state 'hack.index' do
+      url: '/__index'
     .state 'hack.doc' do
       url: '/{docId}'
 
