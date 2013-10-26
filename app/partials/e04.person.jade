@@ -1,0 +1,449 @@
+.container
+  .hero-unit
+    img.img-polaroid.img-circle.pull-left(ng-src="{{person.avatar}}?size=medium")
+    h1 {{person.username}}
+    .person-tag
+      span.label.tag(ng-repeat="tag in person.tags",ng-class="{ 'label-success': tag == 'hackath3n' }",ng-click="gotag(tag)") {{tag}}
+    .person-bio(ng-class="{'person-bio-empty': !person.bio}") {{person.bio || "( 尚未填好自我介紹 )"}}
+    .person-contact
+      span.label.label-info 聯絡資訊
+      a.btn(ng-repeat="provider in ['facebook', 'twitter', 'github']", ng-show='person.auth[provider]', ng-href="http://{{provider}}.com/{{person.auth[provider].username || person.auth[provider].id}}", target="_blank")
+        i.contact-icon.icon-large(class="icon-{{provider}}")
+        {{person.auth[provider].username || provider.charAt(0).toUpperCase() + provider.slice(1)}}
+  .row
+    .span12
+      ul.nav.nav-tabs#e04-issues
+        li.active
+          a(data-toggle="tab",href="#e04-recommended") 適合 {{person.username}} 的
+        li
+          a(data-toggle="tab",href="#e04-owned") {{person.username}} 正進行中的
+        li
+          a(data-toggle="tab",href="#e04-reported") {{person.username}} 發包的
+        li
+          a(data-toggle="tab",href="#e04-watching") {{person.username}} 關注中
+        li
+          a(data-toggle="tab",href="#e04-completed") {{person.username}} 完成的
+      .tab-content
+        .tab-pane.active#e04-recommended
+          h4 適合 {{person.username}} 的
+          table.table.table-striped
+            thead
+              tr
+                th &nbsp;
+                th 工作名稱
+                th 所屬專案
+                th 標籤
+                th 發布日期
+                th 預期交件
+            tbody
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+        .tab-pane#e04-owned
+          h4 {{person.username}} 正進行中的
+          table.table.table-striped
+            thead
+              tr
+                th &nbsp;
+                th 工作名稱
+                th 所屬專案
+                th 標籤
+                th 發布日期
+                th 預期交件
+            tbody
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+        .tab-pane#e04-reported
+          h4 {{person.username}} 發包的
+          table.table.table-striped
+            thead
+              tr
+                th &nbsp;
+                th 工作名稱
+                th 所屬專案
+                th 標籤
+                th 發布日期
+                th 預期交件
+            tbody
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+        .tab-pane#e04-watching
+          h4 {{person.username}} 關注中
+          table.table.table-striped
+            thead
+              tr
+                th &nbsp;
+                th 工作名稱
+                th 所屬專案
+                th 標籤
+                th 發布日期
+                th 預期交件
+            tbody
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+        .tab-pane#e04-completed
+          h4 {{person.username}} 完成的
+          table.table.table-striped
+            thead
+              tr
+                th &nbsp;
+                th 工作名稱
+                th 所屬專案
+                th 標籤
+                th 發布日期
+                th 預期交件
+            tbody
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+              tr
+                td
+                  i.icon-retweet.urgency(title="有更新")
+                td
+                  a 黃起罵了適掃的上我較捲一不卻
+                td
+                  a(title="點擊專案會列出此專案的所有工作") 那歹了終憑的再又放顆下做閒行我裡
+                td
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") 程式
+                  a.label.label-info(title="點擊 tag 會列出包含此 tag 的所有工作") RoR
+                td 2013/07/14
+                td 2013/12/06
+      script
+
+

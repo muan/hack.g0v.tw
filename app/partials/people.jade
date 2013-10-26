@@ -86,3 +86,4 @@
             a.btn(ng-repeat="provider in ['facebook', 'twitter', 'github']", ng-show='person.auth[provider]', ng-href="http://{{provider}}.com/{{person.auth[provider].username || person.auth[provider].id}}", target="_blank")
               i.contact-icon.icon-large(class="icon-{{provider}}")
               {{person.auth[provider].username || provider.charAt(0).toUpperCase() + provider.slice(1)}}
+            a.btn(ng-href="/e04/person/{{person.$id}}") e04

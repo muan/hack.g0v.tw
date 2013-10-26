@@ -2,7 +2,7 @@
 
 angular.module('scroll', []).value('$anchorScroll', angular.noop)
 
-angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state ui.bootstrap]>
+angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state ui.bootstrap e04]>
 .config <[$stateProvider $urlRouterProvider $locationProvider]> ++ ($stateProvider, $urlRouterProvider, $locationProvider) ->
   $stateProvider
     .state 'authz' do
@@ -34,6 +34,10 @@ angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state
       url: '/people'
       templateUrl: '/partials/people.html'
       controller: \PeopleCtrl
+    .state 'e04-person' do
+      url: '/e04/person/{person}'
+      templateUrl: '/partials/e04.person.html'
+      controller: \e04PersonCtrl
     .state 'tag' do
       url: '/tag/{tag}'
       templateUrl: '/partials/tag.html'
