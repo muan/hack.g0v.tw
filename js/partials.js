@@ -21,7 +21,7 @@ angular.module('partials', [])
 }])
 .run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/irc.html', [
-'<iframe ng-if="ircEnabled" ng-show="$state.current.name == \'irc\'" ng-src="https://kiwiirc.com/client/irc.freenode.net/?&amp;theme=cli#g0v.tw"></iframe><iframe ng-if="irclogEnabled" ng-show="$state.current.name == \'irc.log\'" ng-src="http://logbot.g0v.tw/channel/g0v.tw/today"></iframe>',''].join("\n"));
+'<iframe ng-if="ircEnabled" ng-show="$state.current.name == \'irc\'" ng-src="https://kiwiirc.com/client/irc.freenode.net/#g0v.tw"></iframe><iframe ng-if="irclogEnabled" ng-show="$state.current.name == \'irc.log\'" ng-src="http://logbot.g0v.tw/channel/g0v.tw/today"></iframe>',''].join("\n"));
 }])
 .run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/nav.html', [
