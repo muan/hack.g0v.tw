@@ -4,7 +4,8 @@ node_js:
   - "0.10"
 
 before_install:
-  - gem install sass compass
+  - gem install sass --version 3.2.18
+  - gem install compass --version 0.12.3
   - sass --version
 
 branches:
