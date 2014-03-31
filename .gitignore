@@ -17,3 +17,4 @@ npm-debug.log
 *.swp
 .vagrant*
 test/karma.*.js
+.sass-cache

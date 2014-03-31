@@ -9,7 +9,9 @@
     "components"
   ],
   "dependencies": {
+    "commonjs-require-definition": "~0.1.2",
     "jquery": "~2.0.3",
+    "jquery-ui": "~1.10.4",
     "angular": "1.2.4",
     "angular-cookies": "1.2.4",
     "angular-ui": "0.4.0",
