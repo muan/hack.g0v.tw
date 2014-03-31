@@ -2,7 +2,7 @@
 
 angular.module('scroll', []).value('$anchorScroll', angular.noop)
 
-angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.state ui.bootstrap]>
+angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state ui.bootstrap]>
 .config <[$stateProvider $urlRouterProvider $locationProvider]> ++ ($stateProvider, $urlRouterProvider, $locationProvider) ->
   $stateProvider
     .state 'authz' do
@@ -60,8 +60,7 @@ angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.
   $rootScope.$state = $state
   $rootScope.$stateParam = $stateParams
   $rootScope.go = -> $location.path it
-  require! <[config.jsenv]>
-  $rootScope._build = config.BUILD
+  $rootScope._build = window.global.config.BUILD
   $rootScope.$on \$stateChangeSuccess (e, {name}) ->
     window?ga? 'send' 'pageview' page: $location.$$url, title: name
   $rootScope.safeApply = ($scope, fn) ->
