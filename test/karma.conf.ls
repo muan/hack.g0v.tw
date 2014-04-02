@@ -3,6 +3,7 @@ module.exports = (karma) ->
     basePath: "../"
     frameworks: ["mocha", "chai"]
     files:
+      * "test/lib/testlib.js"
       * "_public/js/vendor.js"
       * "_public/js/app.templates.js"
       * "_public/js/app.js"

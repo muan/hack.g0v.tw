@@ -82,6 +82,7 @@ gulp.task 'test:unit' <[build]> ->
 
 gulp.task 'test:karma' ->
   gulp.src [
+    * "test/lib/testlib.js"
     * "_public/js/vendor.js"
     * "_public/js/app.templates.js"
     * "_public/js/app.js"
