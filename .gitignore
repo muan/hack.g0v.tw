@@ -6,8 +6,6 @@ build.xml
 .project
 .settings
 .idea/*
-app/assets/*html
-app/404.static.jade
 
 _public
 node_modules/*

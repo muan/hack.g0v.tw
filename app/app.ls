@@ -2,19 +2,19 @@
 
 angular.module('scroll', []).value('$anchorScroll', angular.noop)
 
-angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state ui.bootstrap]>
+angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.state ui.bootstrap]>
 .config <[$stateProvider $urlRouterProvider $locationProvider]> ++ ($stateProvider, $urlRouterProvider, $locationProvider) ->
   $stateProvider
     .state 'authz' do
       url: '/authz/{request}'
-      templateUrl: '/partials/authz.html'
+      templateUrl: 'partials/authz.html'
       controller: \AuthzCtrl
     .state 'about' do
       url: '/about'
-      templateUrl: '/partials/about.html'
+      templateUrl: 'partials/about.html'
     .state 'project-new' do
       url: '/project-new'
-      templateUrl: '/partials/project.new.html'
+      templateUrl: 'partials/project.new.html'
       controller: \ProjectCtrl
     .state 'irc' do
       url: '/irc'
@@ -26,21 +26,21 @@ angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state
       url: '/log'
     .state 'project' do
       url: '/project'
-      templateUrl: '/partials/project.html'
+      templateUrl: 'partials/project.html'
       controller: \ProjectCtrl
     .state 'project.detail' do
       url: '/{projectName}'
     .state 'people' do
       url: '/people'
-      templateUrl: '/partials/people.html'
+      templateUrl: 'partials/people.html'
       controller: \PeopleCtrl
     .state 'tag' do
       url: '/tag/{tag}'
-      templateUrl: '/partials/tag.html'
+      templateUrl: 'partials/tag.html'
       controller: \TagControl
     .state 'hack' do
       url: '/{hackId}'
-      templateUrl: '/partials/hack.html'
+      templateUrl: 'partials/hack.html'
       controller: \HackFolderCtrl
       onEnter: ->
         $ \body .addClass \hide-overflow
@@ -60,7 +60,7 @@ angular.module \app <[ui partials app.controllers irc.g0v.tw hub.g0v.tw ui.state
   $rootScope.$state = $state
   $rootScope.$stateParam = $stateParams
   $rootScope.go = -> $location.path it
-  $rootScope._build = window.global.config.BUILD
+  $rootScope._build = require 'config.jsenv' .BUILD
   $rootScope.$on \$stateChangeSuccess (e, {name}) ->
     window?ga? 'send' 'pageview' page: $location.$$url, title: name
   $rootScope.safeApply = ($scope, fn) ->
