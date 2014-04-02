@@ -5,6 +5,7 @@ paths =
   js-vendor: 'vendor/scripts/*.js'
   js-env: 'app/*.jsenv'
   ls-app: 'app/**/*.ls'
+  js-app: 'app/**/*.js'
   css-vendor: 'vendor/styles/*.css'
   stylus: 'app/styles/*.styl'
 
@@ -37,7 +38,7 @@ gulp.task 'dev' <[build httpServer]> ->
   livereload-server.listen port, -> gutil.log it if it
   gulp.watch paths.template, <[template]>
   gulp.watch paths.assets, <[assets]>
-  gulp.watch [paths.js-env, paths.ls-app] <[js:app]>
+  gulp.watch [paths.js-env, paths.ls-app, paths.js-app] <[js:app]>
   gulp.watch paths.stylus, <[css]>
 
 gulp.task 'webdriver_update' webdriver_update
@@ -109,7 +110,7 @@ gulp.task 'js:app' ->
     .pipe gulp-livescript({+bare}).on \error gutil.log
 
   s = streamqueue { +objectMode }
-    .done env, app
+    .done env, app, gulp.src paths.js-app
     .pipe gulp-concat 'app.js'
     .pipe gulp-if production, gulp-uglify! 
     .pipe gulp.dest "#{paths.pub}/js"
