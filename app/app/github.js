@@ -77,8 +77,8 @@ var Github = (function($) {
     var ghapi = function(url_spec, params) {
         var found = url_spec.match(/^(((http|https):\/\/(api\.github\.com)(:[0-9]+)?)(\/.*)?)$/);
         var url = found[2];
-        if (window.global.config.GITHUB_API_PROXY) {
-            url = window.global.config.GITHUB_API_PROXY;
+        if (require('config.jsenv').GITHUB_API_PROXY) {
+            url = require('config.jsenv').GITHUB_API_PROXY;
         }
         var path = found[6] ? found[6] : '';
         while (found = path.match(/^([^{}]*)({(\/([^\/{}]+))})(.*)$/)) {
@@ -247,7 +247,7 @@ angular.module("github", [])
             return a_name.localeCompare(b_name);
         };
         // compile label list for showing in .issue-label-filter
-        var g0v_labels = $.map(window.global.config.G0V_LABELS, function(x) {
+        var g0v_labels = $.map(require('config.jsenv').G0V_LABELS, function(x) {
             x.kind = 'g0v';
             x.text = x.zh ? (x.name + ': ' + x.zh) : x.name;
             return x;

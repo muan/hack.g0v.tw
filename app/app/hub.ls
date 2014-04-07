@@ -184,7 +184,7 @@ angular.module 'hub.g0v.tw' <[ui.state firebase github]>
 
 .controller PeopleCtrl: <[$scope $state Hub angularFire]> ++ ($scope, $state, Hub, angularFire) ->
 
-    $scope.tagCategorizations = window.global.config.CATEGORIZATION
+    $scope.tagCategorizations = require 'config.jsenv' .CATEGORIZATION
     $scope.displayTagList = false
 
     $scope <<< do
@@ -262,7 +262,7 @@ angular.module 'hub.g0v.tw' <[ui.state firebase github]>
     if Hub.login-user
         $scope.$emit 'event:auth-login' user: Hub.login-user
 .factory Hub: <[$http angularFireCollection $rootScope]> ++ ($http, angularFireCollection, $rootScope) ->
-    url = window.global.config.FIREBASE
+    url = require 'config.jsenv' .FIREBASE
     self = {}
     myDataRef = new Firebase(url)
     init = ->
