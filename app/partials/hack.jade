@@ -13,7 +13,7 @@
               .entry(ng-include="'partials/hackitem.html'")
     .pad-container(ng-style='{height: contentHeight}')
       article.pad(ng-show='showIndex',ng-include="'partials/hackindex.html'")
-      article.pad(ng-repeat='(key, iframe) in iframes',ng-show='docId == key')
+      article.pad(ng-repeat='(key, iframe) in iframes',ng-show='docId == key',ng-if="docId == key || iframe.doc.type != 'video'")
         span.docmode(ng-show="hasViewMode(iframe.doc.type) && iframe.mode != 'edit'",ng-click="activate(iframe.doc.id, true)") edit
         span.docmode(ng-show="(iframe.doc.type=='hackpad') && showSaveBtn()",ng-click='showSaveModal(true,false,$event)') save / 存檔
         div(modal="saveModalOpen",close="showSaveModal(false)",options="saveModalOpts")
@@ -40,4 +40,5 @@
           span.link
             img(ng-src="{{iframe.doc.icon}}",title="{{iframe.doc.title || iframe.doc.id}}")
             a(ng-href="{{iframe.src}}",target="{{iframe.doc.id}}") {{iframe.src}}
+        iframe.bar(ng-if="iframe.doc.opts.bar && iframe.doc.opts.enable_bar[iframe.doc.type]", src="{{barframeSrc(iframe.doc)}}",style="position: fixed; z-index: 99; background: black")
         iframe.embed(ng-show='!iframe.doc.noiframe',ng-src='{{iframe.src}}',ngx-iframe="iframeCallback(iframe.doc)")

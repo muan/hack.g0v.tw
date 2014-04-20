@@ -13,6 +13,7 @@ dependencies:
   "angular-mocks": "1.2.4"
   "angular-scenario": "1.2.4"
   "bootstrap-stylus": "2.3.2"
+  "csv-js": "*"
 
 overrides:
   "angular":
@@ -21,6 +22,8 @@ overrides:
     main: "README.md"
   # FIX a typo in bootstrap-stylus 2.3.2
   "bootstrap-stylus":
-    main: "stylus/bootstrap.styl"
+    main: 
+      * "stylus/bootstrap.styl"
+      * "stylus/responsive.styl"
   "angular-scenario":
     main: "README.md"

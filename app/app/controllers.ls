@@ -6,7 +6,7 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
   <- $timeout _, 10s * 1000ms
   $rootScope.hideGithubRibbon = true
 
-.controller HackFolderCtrl: <[$scope $state $cookies HackFolder]> ++ ($scope, $state, $cookies, HackFolder) ->
+.controller HackFolderCtrl: <[$scope $sce $state $cookies HackFolder]> ++ ($scope, $sce, $state, $cookies, HackFolder) ->
   $scope <<< do
     hasViewMode: -> it?match /g(doc|present|draw)/
     sortableOptions: do
@@ -42,6 +42,9 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
     showSaveBtn: ->
       $cookies.savebtn != \consumed
     HackFolder: HackFolder
+    barframeSrc: (entry) ->
+      src = entry.opts.bar.replace /\{(\w+)\}/g, -> entry[&1]
+      $sce.trustAsResourceUrl src
     iframeCallback: (doc) -> (status) -> $scope.$apply ->
       console?log \iframecb status, doc
       $state.current.title = "#{doc.title} – hack.g0v.tw"
@@ -187,6 +190,11 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
         "https://#{ doc.site ? '' }hackpad.com/#{id}"
       | \ethercalc =>
           "https://ethercalc.org/#id"
+      | \video =>
+          if doc.provider is \youtube
+              "https://www.youtube.com/embed/#{id}"
+          else if doc.provider is \ustream
+              "http://www.ustream.tv/embed/#{id}?v=3"
       | \url => decodeURIComponent decodeURIComponent id
       | otherwise => ''
 
@@ -228,21 +236,27 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
       cb folder-title, docs, tree
 
     load-csv: (csv, docs, tree, cb) ->
-      var folder-title
       csv -= /^\"?#.*\n/gm
-      entries = for line in csv.split /\n/ when line
-        [url, title, opts, tags, summary, ...rest] = line.split /,/
+      var folder-title
+      folder-opts = {}
+      entries = for line in CSV.parse(csv)
+        [url, title, opts, tags, summary, ...rest] = line
+        continue unless title
         title -= /^"|"$/g
         opts -= /^"|"$/g if opts
-        opts.=replace /""/g '"' if opts
+        if opts
+          opts = try JSON.parse opts.replace /""/g '"'
+        opts ?= {}
         tags -= /^"|"$/g if tags
         [_, prefix, url, hashtag] = url.match /^"?(\s*)(\S+?)?(#\S+?)?\s*"?$/
-        entry = { summary, hashtag, url, title, indent: prefix.length, opts: try JSON.parse opts ? '{}' } <<< match url
+        entry = { summary, hashtag, url, title, indent: prefix.length, opts: {} <<< folder-opts <<< opts } <<< match url
         | void
             unless folder-title
               if title
                 folder-title = title
                 title = null
+              if opts
+                folder-opts = opts
             title: title
             type: \dummy
             id: \dummy
@@ -269,6 +283,16 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
             type: \hackpad
             site: that.1
             id: that.2
+        | // https?:\/\/(?:youtu\.be/|(?:www\.)?youtube\.com/(?:embed/|watch\?v=))([-\w]+) //
+            type: \video
+            provider: \youtube
+            id: that.1
+            icon: "http://g.etfv.co/#{ url }"
+        | // https?:\/\/(?:www\.)?ustream\.tv/(?:embed|channel)/([-\w]+) //
+            type: \video
+            provider: \ustream
+            id: that.1
+            icon: "http://g.etfv.co/#{ url }"
         | // ^(https?:\/\/[^/]+) //
             type: \url
             id: encodeURIComponent encodeURIComponent url
@@ -286,19 +310,17 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
                 {content, class: c ? 'warning'}
 
       # check live status of youtube or ustream
-      entries.filter( -> it and it.url ).map( ->
-        if videoToken = it.url.match(/youtube.com\/embed\/(.*)/)
-          videoId = videoToken[1]
-          request = gapi.client.youtube.videos.list({'id':videoId, 'part':'snippet'})
+      entries.filter (?url) .map ->
+        if it.type is 'video' and it.provider is 'youtube'
+          request = gapi.client.youtube.videos.list({'id': it.id, 'part':'snippet'})
           response <~ request.execute()
           if 'live' == response.items?[0].snippet.liveBroadcastContent
             it.tags ++= {class: 'warning', content: 'LIVE'}
-        else if videoToken = it.url.match(/ustream.tv\/embed\/(.*)/)
+        else if videoToken = it.url.match(/ustream.tv\/embed\/([^?]+)/)
           videoId = videoToken[1]
           response <- $.get ("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'http%3A%2F%2Fapi.ustream.tv%2Fjson%2Fchannel%2F" + videoId + "%2FgetValueOf%2Fstatus'&format=json&diagnostics=true&callback=")
           if 'live' == JSON.parse(response.query?.results?.body?.p).results
             it.tags ++= {class: 'warning', content: 'LIVE'}
-      )
       docs.splice 0, docs.length, ...(entries.filter -> it?)
       last-parent = 0
       nested = for entry, i in docs
