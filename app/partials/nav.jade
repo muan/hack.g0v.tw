@@ -30,6 +30,28 @@ ul.nav
         a(target='_blank' href='https://www.google.com/calendar/embed?src=cpcf6iv5pt9l6gl2ue3svo63e8%40group.calendar.google.com&ctz=Asia/Taipei') 社群行事曆  
   li.dropdown
     a.dropdown-toggle
+      | 長期專案
+      i.icon-caret-down
+    ul.dropdown-menu.pull-right(role='menu', aria-labelledby='projects')
+      li(role='presentation')
+        a(role='menuitem', tabindex='-1',ng-href='/meta') 基礎建設
+      li(role='presentation')
+        a(role='menuitem', tabindex='-1',ng-href='/g0v-ly') 立法院專案
+      li(role='presentation')
+        a(role='menuitem', tabindex='-1',ng-href='/3du') 萌典
+      li(role='presentation')
+        a(role='menuitem', tabindex='-1',ng-href='/don-democracy') 動民主家族
+      li(role='presentation')
+        a(role='menuitem', tabindex='-1',ng-href='/g0vwelfare') 福利請聽
+      li(role='presentation')
+        a(role='menuitem', tabindex='-1',ng-href='/kuansim') 鄉民關心你
+      li(role='presentation')
+        a(role='menuitem', tabindex='-1',ng-href='/tisa') 服貿協議
+      li(role='presentation')
+        a(role='menuitem', tabindex='-1',ng-href='/g0v-cy') 開放政治獻金  
+
+  li.dropdown
+    a.dropdown-toggle
       | 協作
       i.icon-caret-down
     ul.dropdown-menu.pull-right(role='menu', aria-labelledby='projects')
@@ -66,27 +88,7 @@ ul.nav
       li(role='presentation')
         a(target="_blank" href='http://g0v.github.io/moc-license-center/software.html') g0v 軟體中心
 
-  li.dropdown
-    a.dropdown-toggle
-      | 長期專案
-      i.icon-caret-down
-    ul.dropdown-menu.pull-right(role='menu', aria-labelledby='projects')
-      li(role='presentation')
-        a(role='menuitem', tabindex='-1',ng-href='/meta') 基礎建設
-      li(role='presentation')
-        a(role='menuitem', tabindex='-1',ng-href='/g0v-ly') 立法院專案
-      li(role='presentation')
-        a(role='menuitem', tabindex='-1',ng-href='/3du') 萌典
-      li(role='presentation')
-        a(role='menuitem', tabindex='-1',ng-href='/don-democracy') 動民主家族
-      li(role='presentation')
-        a(role='menuitem', tabindex='-1',ng-href='/g0vwelfare') 福利請聽
-      li(role='presentation')
-        a(role='menuitem', tabindex='-1',ng-href='/kuansim') 鄉民關心你
-      li(role='presentation')
-        a(role='menuitem', tabindex='-1',ng-href='/tisa') 服貿協議
-      li(role='presentation')
-        a(role='menuitem', tabindex='-1',ng-href='/g0v-cy') 開放政治獻金
+
   
   li
     a(target="_blank",href='http://g0v.github.io/leve1up/')
