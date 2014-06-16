@@ -1,16 +1,17 @@
-folder-whitelist = (name) ->
-  return true
-
 angular.module 'app.controllers' <[ui.state ngCookies]>
-.controller AppCtrl: <[$scope $state $rootScope $timeout]> ++ ($scope, $state, $rootScope, $timeout) ->
+.controller AppCtrl: <[$scope $window $state $rootScope $timeout]> ++ ($scope, $window, $state, $rootScope, $timeout) ->
   $scope.$watch '$state.current.name' ->
     $scope.irc-enabled = true if it is \irc
+
+  # mobile
+  window.addEventListener "load" ->
+    <- $timeout _, 0
+    window.scrollTo 0, 1
 
   <- $timeout _, 10s * 1000ms
   $rootScope.hideGithubRibbon = true
 
 .controller HackFolderCtrl: <[$scope $sce $window $state $cookies HackFolder]> ++ ($scope, $sce, $window, $state, $cookies, HackFolder) ->
-  domain-name = require 'config.jsenv' .DOMAIN_NAME
   $scope <<< do
     hasViewMode: -> it?match /g(doc|present|draw)/
     sortableOptions: do
@@ -49,9 +50,9 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
     barframeSrc: (entry) ->
       src = entry.opts.bar.replace /\{(\w+)\}/g, -> entry[&1]
       $sce.trustAsResourceUrl src
-    iframeCallback: (doc={}) -> (status) -> $scope.$apply ->
+    iframeCallback: (doc) -> (status) -> $scope.$apply ->
       console?log \iframecb status, doc
-      $state.current.title = "#{doc.title} – #{domain-name}"
+      $state.current.title = "#{doc.title} – hackfoldr"
       if status is \fail
         doc.noiframe = true
       else
@@ -62,8 +63,6 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
     reload: (hackId) -> HackFolder.getIndex hackId, true ->
 
   $scope.$watch 'hackId' (hackId) ->
-    unless folder-whitelist hackId
-      return $window.location.href = "http://hackfoldr.org/#{$window.location.pathname}"
     <- HackFolder.getIndex hackId, false
     $scope.$watch 'docId' (docId) ->
       doc = HackFolder.activate docId if docId
@@ -72,7 +71,7 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
         folder-title, docs, tree <- HackFolder.load-remote-csv doc.id
         [entry] = [entry for entry in HackFolder.tree when entry.id is docId]
         entry.tagFilter = entry.tags?0?content
-        unless entry.children
+        unless entry.chidlren
           entry.children ?= tree?0.children
           HackFolder.docs.splice docs.length, 0, ...docs
         $scope.indexDocs = docs
@@ -85,13 +84,13 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
       if HackFolder.docs.0?id
         $state.transitionTo 'hack.doc', { docId: that, hackId: $scope.hackId}
 
-  $scope.hackId = if $state.params.hackId => that else 'g0v-hackath9n'
+  $scope.collapsed = $cookies.collapsed ? $window.innerWidth < 768
+  $scope.$watch 'collapsed' -> if it?
+    $cookies.collapsed = it
+
+  $scope.hackId = if $state.params.hackId => that else 'HACKFOLDR_ID'
   $scope.$watch '$state.params.docId' (docId) ->
     $scope.docId = encodeURIComponent encodeURIComponent docId if docId
-  $scope.sidebar = false
-  $scope.toggleSidebar = ->
-    $scope.collapsed = false
-    $scope.sidebar = !$scope.sidebar
 
 .directive 'resize' <[$window]> ++ ($window) ->
   (scope, element, attrs) ->
@@ -221,14 +220,7 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
     getIndex: (id, force, cb) ->
       return cb docs if hackId is id and !force
       retry = 0
-      if id is /^[-\w]{40}[-\w]*$/ then doit = ~>
-        callback = ~> for own k, sheet of it
-          docs.length = 0
-          hackId := id
-          @process-csv sheet.toArray!, cb
-          return
-        Tabletop.init { key: id, callback, -simpleSheet }
-      else doit = ~>
+      doit = ~>
         csv <~ $http.get "https://www.ethercalc.org/_/#{id}/csv"
         .error -> return if ++retry > 3; setTimeout doit, 1000ms
         .success
@@ -253,13 +245,10 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
       cb folder-title, docs, tree
 
     load-csv: (csv, docs, tree, cb) ->
-      data = csv
-      if typeof data is \string
-        csv -= /^\"?#.*\n/gm
-        data = CSV.parse(csv)
+      csv -= /^\"?#.*\n/gm
       var folder-title
       folder-opts = {}
-      entries = for line in data | line.length
+      entries = for line in CSV.parse(csv)
         [url, title, opts, tags, summary, ...rest] = line
         continue unless title
         title -= /^"|"$/g

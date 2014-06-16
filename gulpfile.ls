@@ -1,3 +1,12 @@
+env-override = (json) ->
+  for key of json when process.env[key]?
+    json[key] = that
+  json
+
+require! fs
+require-json = -> JSON.parse fs.readFileSync it, \utf-8
+config = env-override require-json('./app/config.jsenv')
+
 paths =
   pub: '_public'
   template: 'app/partials/**/*.jade'
@@ -100,10 +109,7 @@ gulp.task 'test:karma' ->
 require! <[gulp-json-editor gulp-insert gulp-commonjs gulp-uglify]>
 gulp.task 'js:app' ->
   env = gulp.src paths.js-env
-    .pipe gulp-json-editor (json) ->
-      for key of json when process.env[key]?
-        json[key] = that
-      json
+    .pipe gulp-json-editor env-override
     .pipe gulp-insert.prepend 'module.exports = '
     .pipe gulp-commonjs!
 
@@ -113,7 +119,7 @@ gulp.task 'js:app' ->
   s = streamqueue { +objectMode }
     .done env, app, gulp.src paths.js-app
     .pipe gulp-concat 'app.js'
-    .pipe gulp-if production, gulp-uglify! 
+    .pipe gulp-if production, gulp-uglify!
     .pipe gulp.dest "#{paths.pub}/js"
 
 require! <[gulp-filter gulp-bower gulp-bower-files gulp-stylus gulp-csso]>
@@ -126,7 +132,7 @@ gulp.task 'js:vendor' <[bower]> ->
   s = streamqueue { +objectMode }
     .done bower, gulp.src paths.js-vendor
     .pipe gulp-concat 'vendor.js'
-    .pipe gulp-if production, gulp-uglify! 
+    .pipe gulp-if production, gulp-uglify!
     .pipe gulp.dest "#{paths.pub}/js"
     .pipe livereload!
 
@@ -159,7 +165,8 @@ gulp.task 'index' ->
     .pipe gulp-jade do
       pretty: pretty
       locals:
-        googleAnalytics: 'UA-39804485-1'
+        googleAnalytics: config.GA_ID
+        domainName: config.DOMAIN_NAME
     .pipe gulp.dest '_public'
     .pipe livereload!
 
@@ -179,3 +186,22 @@ gulp.task 'assets' ->
     .pipe gulp.dest paths.pub
 
 gulp.task 'default' <[build]>
+
+require! <[gulp-replace]>
+
+gulp.task 'replace', ->
+  gulp.src 'templates/deploy'
+    .pipe gulp-replace /GITHUB_ACCOUNT/, config.GITHUB_ACCOUNT
+    .pipe gulp.dest '.'
+
+  gulp.src 'templates/app.ls'
+    .pipe gulp-replace /HACKFOLDR_ID/, config.HACKFOLDR_ID
+    .pipe gulp.dest 'app'
+
+  gulp.src 'templates/controllers.ls'
+    .pipe gulp-replace /HACKFOLDR_ID/, config.HACKFOLDR_ID
+    .pipe gulp.dest 'app/app'
+
+  gulp.src 'templates/CNAME'
+    .pipe gulp-replace /DOMAIN_NAME/, config.DOMAIN_NAME
+    .pipe gulp.dest 'app/assets'

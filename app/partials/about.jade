@@ -4,8 +4,8 @@
     h2 為你的 g0v 專案製作 hackfoldr
     h3 建立 hackfoldr
     ol
-        li 想好專案英文網址名稱（例如：g0v.tw-hackfoldr）
-        li 在瀏覽器網址列輸入「hack.g0v.tw/(你的專案的英文網址名稱)」
+        li 想好專案英文網址名稱（例如：your-project-name）
+        li 在瀏覽器網址列輸入「hackfoldr.org/(你的專案的英文網址名稱)」
     p 恭喜！你已經建立自己的 hackfoldr 了！
     h3 自訂 hackfoldr
     ol
@@ -14,8 +14,8 @@
         li 接著從第3行開始，可以增加你想收集的網址
         li 輸入格式為：在 B3 中輸入第一份文件名稱，A3 格子中輸入第一份文件網址
         li 以此類推，把所有文件的顯示名稱和網址都輸入進去
-        li 切回「hack.g0v.tw/(你的專案的英文網址名稱)」這個瀏覽器分頁
-        li 按 home 圖示旁的 ↺ 按鈕，或者 F5 / Ctrl + R 重新整理頁面
+        li 切回「hackfoldr.org/(你的專案的英文網址名稱)」這個瀏覽器分頁
+        li 按 F5 / Ctrl + R 重新整理頁面
     p 恭喜！你已經打造出屬於自己的 hackfoldr 了！
     h3 hackfoldr 進階用法
     ol
@@ -27,6 +27,18 @@
     ol
         li 到該次黑客松的相關文件中，分享你的 hackfoldr 網址
         li start social hacking! :D
+    h3 使用 Google Spreadsheet 管理 hackfoldr
+    p 在某些特殊情況下，ethercalc 管理後台「無須登入、人人可編輯」的特色，會影響協作進度。此時可考慮在初期「發散式」的連結收集後，轉向「收歛式」，改用 Google Spreadsheet 後端，來限定某些具編輯權限的人。方式如下:
+    ol
+        li 開一個 Google 試算表，選「File (檔案)」>「Publish to the web... (發布到網頁上)」再按「Start publishing (開始發佈)」、「OK (確定)」。
+        li 取得發佈網址，例如:
+          blockquote
+            a(href='https://docs.google.com/spreadsheets/d/1Wbk0HiD4yRVus3qXzA2d8a7LmZ3wYWCSWWdGD39sWsU/pubhtml') https://docs.google.com/spreadsheets/d/1Wbk0HiD4yRVus3qXzA2d8a7LmZ3wYWCSWWdGD39sWsU/pubhtml
+        li 在 /d/ 後面，直到下個斜線為止的文數字就是試算表的 ID，放到 hackfoldr.org/ 後面即為文件夾網址，例如:
+          blockquote
+            a(href='http://hackfoldr.org/1Wbk0HiD4yRVus3qXzA2d8a7LmZ3wYWCSWWdGD39sWsU') http://hackfoldr.org/1Wbk0HiD4yRVus3qXzA2d8a7LmZ3wYWCSWWdGD39sWsU
+        li 如有需要，可運用 bit.ly 等服務自訂短網址。
+    p 試算表內的格式和 ethercalc 相同，但目前不支援空白行，第一個空白行以下的資料將被忽略。
     h2 關於
     h3 g0v hackfoldr
     p g0v hackfoldr 是經過客製的 hackfoldr，它能夠：

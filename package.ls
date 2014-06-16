@@ -12,10 +12,11 @@ engines:
   npm: '1.1.x'
 scripts:
   prepublish: 'lsc -cj package.ls && lsc -cj bower.json.ls'
-  build: 'gulp --require LiveScript build'
-  test: 'gulp --require LiveScript test:unit'
-  start: 'gulp --require LiveScript dev'
-  protractor: 'gulp --require LiveScript test:e2e'
+  build: 'gulp build'
+  test: 'gulp test:unit'
+  start: 'gulp dev'
+  protractor: 'gulp test:e2e'
+  fork: 'gulp replace'
 dependencies: {}
 devDependencies:
   express: '3.4.x'
@@ -31,7 +32,7 @@ devDependencies:
   'chai': '~1.8.0'
   'protractor': '~0.18.1'
   "streamqueue": '~0.0.5'
-  gulp: '~3.5.0'
+  gulp: '^3.7.0'
   "gulp-util": '~2.2.13'
   "gulp-exec": '~1.0.4'
   "gulp-protractor": '^0.0.7'
@@ -55,3 +56,4 @@ devDependencies:
   "connect-livereload": '~0.3.2'
   "tiny-lr": '~0.0.5'
   'gulp-if': '~0.0.5'
+  'gulp-replace': '~0.2.0'

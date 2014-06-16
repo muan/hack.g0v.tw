@@ -1,4 +1,8 @@
 {
+  "DOMAIN_NAME": "hack.g0v.tw",
+  "GITHUB_ACCOUNT": "g0v",
+  "HACKFOLDR_ID": "g0v-hackath9n",
+  "GA_ID": "UA-39804485-1",
   "BUILD": "git-unknown",
   "FIREBASE": "https://g0vhub.firebaseio.com",
   "GITHUB_API_PROXY": "http://utcr.org:8080",

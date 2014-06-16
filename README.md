@@ -25,47 +25,52 @@ For example, with an index like http://ethercalc.org/g0v-hackath2n, you'll get h
 * EtherCalc
 
 # Prerequisites
+[Node.js](http://nodejs.org/) is required on your system.
 
-On Mac, use [Homebrew](https://github.com/mxcl/homebrew) and install gems in `$HOME`:
+Check it with the following commands:
 
-	$ brew install node
-	$ gem install compass --user-install
-	$ export PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
-
-On Mac, use [Homebrew](https://github.com/mxcl/homebrew) and install gems in local directory: (doesn't work)
-
-	$ brew install node
-	$ export GEM_HOME="$PWD/gems"
-	$ mkdir -p $GEM_HOME
-	$ gem install compass
-	$ export PATH="$PWD/gem/bin:$PATH"
+    $ npm -v
+    $ node -v
 
 # Install
 
-    % npm i
-    % npm run start
-    
+    $ npm i
+    $ npm start
+
 Then after the building message completes, connect to http://localhost:3333/.
 
-# Using vagrant to develop
+# Using Vagrant to develop
 
-[Vagrant](http://docs.vagrantup.com/v2/why-vagrant/index.html) provides easy to configure, reproducible, and portable work environments.
+[Vagrant](http://docs.vagrantup.com/v2/why-vagrant/index.html) provides easy-to-configure, reproducible, and portable work environments. It will create a headless VirtualBox VM, then prepare the development environment and launch the server for you. You can then develop and test the code anywhere :).
 
-To use vagrant, you need to install:
+To use Vagrant, you need to install:
 
-- vagrant (> 1.1.x)
-- virtualbox
+- Vagrant (>= 1.6.x)
+- VirtualBox
 
 To setup up work environment:
 
-    % vagrant box add g0v https://dl.dropboxusercontent.com/u/4339854/g0v/g0v-ubuntu-precise64.box
-    % vagrant up
+    $ vagrant up
 
-After `vagrant up`, browse http://localhost:6987/ in your favorite browser. You are all set!
+It will take several minutes for the first time, since it will have to configure its Ubuntu VM image. After the operation is finished, browse to `http://localhost:6987/` in your favorite browser. You are all set!
+
+`vagrant halt` if you need to shut down the Vagrant VM. For more information about Vagrant, see the [documentation of Vagrant](http://docs.vagrantup.com).
+
+Note: Have to use older Vagrant (1.3.0+)? Change the `Vagrantfile`.
 
 # Google API key
 
 To use the google APIs client to query YouTube Data API and check live status of Youtube videos, you need to apply your own Google API Key for browser applications at [https://code.google.com/apis/console#:access](https://code.google.com/apis/console#:access). After getting your API key, commit it into app/config.jsenv
+
+# Fork
+
+1. fork to your github account
+2. `$ git clone git@github.com/GITHUB_ACCOUNT/hackfoldr`
+3. `$ npm install`
+4. replace GITHUB_ACCOUNT, HACKFOLDR_ID, DOMAIN_NAME, GA_ID in gulpfile.ls
+5. `$ npm run fork`
+6. `$ npm run build`
+7. `$ ./deploy`
 
 # CC0 1.0 Universal
 

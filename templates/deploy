@@ -3,7 +3,7 @@ set -e -x
 git --version
 upstream=$1
 : ${upstream:=origin}
-: ${REPO:=git@github.com:g0v/hack.g0v.tw}
+: ${REPO:=git@github.com:GITHUB_ACCOUNT/hackfoldr}
 git fetch $upstream
 if [ `git rev-list HEAD...$upstream/master --count` -ne 0 ]; then
   echo "not deploying"
@@ -30,6 +30,6 @@ rm -f app/404.jade
 # this is not automated with travis yet
 if [ "x$FIREBASE" != "x" ]
 then
-	echo $FIREBASE
-	./node_modules/.bin/lsc -j < etc/rules.ls | curl -X PUT -d @- $FIREBASE/.settings/rules.json?auth=$FIREBASE_SECRET
+  echo $FIREBASE
+  ./node_modules/.bin/lsc -j < etc/rules.ls | curl -X PUT -d @- $FIREBASE/.settings/rules.json?auth=$FIREBASE_SECRET
 fi
