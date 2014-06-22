@@ -39,7 +39,7 @@ angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.
       templateUrl: 'partials/tag.html'
       controller: \TagControl
     .state 'hack' do
-      url: '/{hackId}'
+      url: '/{hackId:[^/]{1,}}'
       templateUrl: 'partials/hack.html'
       controller: \HackFolderCtrl
       onEnter: ->
