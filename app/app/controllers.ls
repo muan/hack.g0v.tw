@@ -1,6 +1,6 @@
 folder-whitelist = (name) ->
   return true if name is /^g0v-hackath/
-  return true if name in <[meta g0v-ly g0v-cy 3du don-democracy g0vwelfare kuansim tisa g0v-summit2014]>
+  return true if name in <[meta g0v-ly g0v-cy 3du don-democracy g0vwelfare kuansim tisa g0v-summit2014 projectpool]>
 
 angular.module 'app.controllers' <[ui.state ngCookies]>
 .controller AppCtrl: <[$scope $state $rootScope $timeout]> ++ ($scope, $state, $rootScope, $timeout) ->
