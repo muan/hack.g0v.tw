@@ -42,7 +42,7 @@ devDependencies:
   "gulp-jade": '~0.4.1'
   "gulp-angular-templatecache": '^1.1.0'
   "gulp-bower": '~0.0.2'
-  "gulp-bower-files": '>= 0.1.8'
+  "gulp-bower-files": '0.2.5'
   "gulp-uglify": '~0.2.1'
   #"gulp-cssmin": '~0.1.0' # failed with gulp-if
   'gulp-csso': '~0.2.6'
