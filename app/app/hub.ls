@@ -1,4 +1,4 @@
-angular.module 'hub.g0v.tw' <[ui.state firebase github]>
+angular.module 'hub.g0v.tw' <[ui.router firebase github]>
 .config <[$httpProvider]> ++ ($httpProvider) ->
     $httpProvider.defaults.useXDomain = true
     delete $httpProvider.defaults.headers.common['X-Requested-With']

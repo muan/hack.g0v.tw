@@ -2,54 +2,67 @@
 
 angular.module('scroll', []).value('$anchorScroll', angular.noop)
 
-angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.state ui.bootstrap]>
-.config <[$stateProvider $urlRouterProvider $locationProvider]> ++ ($stateProvider, $urlRouterProvider, $locationProvider) ->
-  $stateProvider
-    .state 'authz' do
+angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.router ui.router.stateHelper]># ui.bootstrap]>
+.config <[stateHelperProvider $urlRouterProvider $locationProvider]> ++ (stateHelperProvider, $urlRouterProvider, $locationProvider) ->
+  stateHelperProvider
+    ..setNestedState do
+      name: 'authz'
       url: '/authz/{request}'
       templateUrl: 'partials/authz.html'
       controller: \AuthzCtrl
-    .state 'about' do
+    ..setNestedState do
+      name: 'about'
       url: '/about'
       templateUrl: 'partials/about.html'
-    .state 'project-new' do
+    ..setNestedState do
+      name: 'projcet-name'
       url: '/project-new'
       templateUrl: 'partials/project.new.html'
       controller: \ProjectCtrl
-    .state 'irc' do
+    ..setNestedState do
+      name: 'irc'
       url: '/irc'
       onEnter: ->
         $ \body .addClass \hide-overflow
       onExit: ->
         $ \body .removeClass \hide-overflow
-    .state 'irc.log' do
-      url: '/log'
-    .state 'project' do
+      children:
+        name: 'log'
+        url: '/log'
+    ..setNestedState do
+      name: 'project'
       url: '/project'
       templateUrl: 'partials/project.html'
       controller: \ProjectCtrl
-    .state 'project.detail' do
-      url: '/{projectName}'
-    .state 'people' do
+      children:
+        name: 'detail'
+        url: '/{projectName}'
+    ..setNestedState do
+      name: 'people'
       url: '/people'
       templateUrl: 'partials/people.html'
       controller: \PeopleCtrl
-    .state 'tag' do
+    ..setNestedState do
+      name: 'tag'
       url: '/tag/{tag}'
       templateUrl: 'partials/tag.html'
       controller: \TagControl
-    .state 'hack' do
+    ..setNestedState do
+      name: 'hack'
       url: '/{hackId:[^/]{1,}}'
-      templateUrl: 'partials/hack.html'
-      controller: \HackFolderCtrl
+      template-url: 'partials/hack.html'
+      resolve:
+        hackId: <[$stateParams]> ++ (.hackId)
+      controller: 'HackFolderCtrl'
       onEnter: ->
         $ \body .addClass \hide-overflow
       onExit: ->
         $ \body .removeClass \hide-overflow
-    .state 'hack.index' do
-      url: '/__index'
-    .state 'hack.doc' do
-      url: '/{docId}'
+      children:
+        * name: 'index'
+          url: '/__index'
+        * name: 'doc'
+          url: '/{docId}'
 
   $urlRouterProvider
     .otherwise('/g0v-hackath9n')
@@ -63,7 +76,7 @@ angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.
   $rootScope._build = require 'config.jsenv' .BUILD
   $rootScope.$on \$stateChangeSuccess (e, {name}) ->
     window?ga? 'send' 'pageview' page: $location.$$url, title: name
-  $rootScope.safeApply = ($scope, fn) ->
+  $rootScope.$safeApply = ($scope, fn) ->
     phase = $scope.$root.$$phase
     if (phase is '$apply' || phase is '$digest')
       fn?!
