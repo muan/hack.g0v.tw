@@ -26,6 +26,8 @@ body
   &.hide-overflow
     overflow hidden
 .ui.fixed.inverted.menu
+  &.desktop.only
+    z-index 1001 // greater than the link '按以下連結，可開啟到新頁籤'
   //margin 0
   margin-bottom 0px
   box-shadow 0px 1px 8px rgba(0,0,0,0.5)
