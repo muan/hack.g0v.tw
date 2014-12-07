@@ -90,7 +90,7 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
     $scope.show-index = $state.current.name is \hack.index
     return if $scope.show-index
 
-  $scope.hackId = if $state.params.hackId => that else 'g0v-hackath10n'
+  $scope.hackId = if $state.params.hackId => that else 'g0v-hackath11n'
   $scope.$watch '$state.params.docId' (docId) ->
     $scope.docId = encodeURIComponent encodeURIComponent docId if docId
   $scope.sidebar = false
