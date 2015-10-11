@@ -50,9 +50,12 @@ angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.
       url: '/__index'
     .state 'hack.doc' do
       url: '/{docId}'
+    .state 'home' do
+      url: '/'
+      templateUrl: 'partials/home.html'
 
   $urlRouterProvider
-    .otherwise('/g0v-hackath16n')
+    .otherwise('/')
 
   $locationProvider.html5Mode true
 
