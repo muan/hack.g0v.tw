@@ -47,6 +47,9 @@ html(lang='en')
       .main-content
         .irc(ng-include="'partials/irc.html'",resize,ng-style="{width: width, height: contentHeight}",ng-controller="IRC",ng-show="ircActive")
         div(ui-view)
+      .main-content
+        .mail-archive(ng-include="'partials/mail-archive.html'",resize,ng-style="{width: width, height: contentHeight}",ng-controller="MailArchive",ng-show="mailArchiveActive")
+        div(ui-view)
       .push
     - if (typeof(segmentio) !== 'undefined')
       script(type="text/javascript").

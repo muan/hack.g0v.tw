@@ -10,6 +10,9 @@ angular.module 'app.controllers' <[ui.state ngCookies]>
   <- $timeout _, 10s * 1000ms
   $rootScope.hideGithubRibbon = true
 
+.controller MailArchive: <[$scope]> ++ ($scope) ->
+  $scope.mailArchiveActive = true
+
 .controller HackFolderCtrl: <[$scope $sce $window $state $cookies HackFolder]> ++ ($scope, $sce, $window, $state, $cookies, HackFolder) ->
   domain-name = require 'config.jsenv' .DOMAIN_NAME
   $scope <<< do

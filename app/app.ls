@@ -16,6 +16,12 @@ angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.
       url: '/project-new'
       templateUrl: 'partials/project.new.html'
       controller: \ProjectCtrl
+    .state 'mail-archive' do
+      url: '/mail-archive'
+      onEnter: ->
+        $ \body .addClass \hide-overflow
+      onExit: ->
+        $ \body .removeClass \hide-overflow
     .state 'irc' do
       url: '/irc'
       onEnter: ->
