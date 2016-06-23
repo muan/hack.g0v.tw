@@ -49,7 +49,7 @@ html(lang='en')
         div(ui-view)
       .main-content
         .mail-archive(ng-include="'partials/mail-archive.html'",resize,ng-style="{width: width, height: contentHeight}",ng-controller="MailArchive",ng-show="mailArchiveActive")
-        div(ui-view)
+          div(ui-view)
       .push
     - if (typeof(segmentio) !== 'undefined')
       script(type="text/javascript").
