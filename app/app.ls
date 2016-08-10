@@ -12,6 +12,9 @@ angular.module \app <[ui app.templates app.controllers irc.g0v.tw hub.g0v.tw ui.
     .state 'about' do
       url: '/about'
       templateUrl: 'partials/about.html'
+    .state 'transaction' do
+      url: '/transaction'
+      templateUrl: 'partials/transaction.html'      
     .state 'project-new' do
       url: '/project-new'
       templateUrl: 'partials/project.new.html'
