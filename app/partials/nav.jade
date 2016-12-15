@@ -2,10 +2,10 @@ ul.nav
   li
     a(ng-href='/') 揪松網
   li.dropdown-split-right.dropdown
-    a.dropdown-toggle
+    button.btn-link.dropdown-toggle(type='button', aria-haspopup='true')
       | 各期黑客松共筆
-      i.icon-caret-down
-    ul.dropdown-menu.pull-right(role='menu', aria-labelledby='projects')
+      i.icon-caret-down(aria-hidden='true')
+    ul.dropdown-menu.pull-right(role='menu')
       li
         a(ng-href='/g0v-hackath19n') 飛彈試射/20160618
       li
@@ -19,10 +19,10 @@ ul.nav
       li
         a(target='_blank' href='https://www.google.com/calendar/embed?src=cpcf6iv5pt9l6gl2ue3svo63e8%40group.calendar.google.com&ctz=Asia/Taipei') 社群行事曆
   //li.dropdown
-    a.dropdown-toggle
+    button.btn-link.dropdown-toggle(type='button', aria-haspopup='true')
       | 長期專案
-      i.icon-caret-down
-    ul.dropdown-menu.pull-right(role='menu', aria-labelledby='projects')
+      i.icon-caret-down(aria-hidden='true')
+    ul.dropdown-menu.pull-right(role='menu')
       li(role='presentation')
         a(role='menuitem', tabindex='-1',ng-href='/projectpool') g0v專案池
       li(role='presentation')
@@ -44,10 +44,10 @@ ul.nav
       li(role='presentation')
         a(role='menuitem', tabindex='-1',ng-href='/g0v-summit2014') 2014 summit
   li.dropdown
-    a.dropdown-toggle
+    button.btn-link.dropdown-toggle(type='button', aria-haspopup='true')
       | 協作平台
-      i.icon-caret-down
-    ul.dropdown-menu.pull-right(role='menu', aria-labelledby='projects')
+      i.icon-caret-down(aria-hidden='true')
+    ul.dropdown-menu.pull-right(role='menu')(role='menu', aria-labelledby='projects')
       li(role='presentation')
         a(target="_blank" role='menuitem', tabindex='-1',ng-href='/project') 專案列表
       li(role='presentation')
@@ -57,10 +57,10 @@ ul.nav
       li(role='presentation')
         a(target="_blank" href='https://drive.google.com/folderview?id=0B0NsS2a-Qx8ZN19uV1p6YWd6TXc#') g0v google drive
    li.dropdown
-    a.dropdown-toggle
+    button.btn-link.dropdown-toggle(type='button', aria-haspopup='true')
       | 討論
-      i.icon-caret-down
-    ul.dropdown-menu.pull-right(role='menu', aria-labelledby='projects')
+      i.icon-caret-down(aria-hidden='true')
+    ul.dropdown-menu.pull-right(role='menu')
       li(role='presentation')
         a(target="_blank" role='menuitem', tabindex='-1',ng-href='/irc') IRC 聊天室
       li(role='presentation')
@@ -72,11 +72,10 @@ ul.nav
       li(role='presentation')
         a(target="_blank" href='/mail-archive') 過往電子報
   li.dropdown
-    a.dropdown-toggle
+    button.btn-link.dropdown-toggle(type='button', aria-haspopup='true')
       | 資源
-      i.icon-caret-down
-    ul.dropdown-menu.pull-right(role='menu', aria-labelledby='projects')
-
+      i.icon-caret-down(aria-hidden='true')
+    ul.dropdown-menu.pull-right(role='menu')
       li(role='presentation')
         a(target="_blank" href='http://data.g0v.tw/') 資料集
       li(role='presentation')
